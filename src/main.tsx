@@ -1,9 +1,21 @@
+import ReactDOM from 'react-dom/client'
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
+import { Provider } from 'react-redux'
+import { store } from './store/store.ts'
+import { ConfigProvider } from 'antd'
+import { customTheme } from './theme.ts'
+import { App } from './App.tsx'
 
-createRoot(document.getElementById('root')!).render(
+const container = document.getElementById('root')
+if (!container) throw new Error('#root element not found')
+const root: ReactDOM.Root = ReactDOM.createRoot(container)
+
+root.render(
   <StrictMode>
-    <App />
-  </StrictMode>,
+    <ConfigProvider theme={customTheme}>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </ConfigProvider>
+  </StrictMode>
 )
